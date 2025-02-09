@@ -20,6 +20,27 @@ const PlanetForm = () => {
 
   const globeRef = useRef();
 
+  const [texture, setTexture] = useState("./textures/earth.jpg");
+
+  const changeTexture = (direction) => {
+    const textures = [
+      "./textures/generator/textures/Alpine.jpg", 
+      "./textures/generator/textures/Icy.jpg", 
+      "./textures/generator/textures/Martian.jpg", 
+      "./textures/generator/textures/Savannah.jpg", 
+      "./textures/generator/textures/Swamp.jpg", 
+      "./textures/generator/textures/Tropical.jpg", 
+      "./textures/generator/textures/Venusian.jpg", 
+      "./textures/generator/textures/Volcanic.jpg", 
+    ];
+    const currentIndex = textures.indexOf(texture);
+    const nextIndex =
+      direction === "left"
+        ? (currentIndex - 1 + textures.length) % textures.length
+        : (currentIndex + 1) % textures.length;
+    setTexture(textures[nextIndex]);
+  };
+
     useEffect(() => {
         const interval = setInterval(() => {
         if (globeRef.current) {
@@ -196,12 +217,31 @@ const PlanetForm = () => {
         )}
     </div>
 
-    <div className="flex-grow flex justify-center items-center">
+    <div className="flex justify-center items-center">
+      {/* Left button */}
+      <button
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 bg-gray-600 text-white rounded"
+        onClick={() => changeTexture("left")}
+      >
+        ←
+      </button>
+
+      {/* Globe */}
+      <div className="flex-grow flex justify-center items-center relative">
         <Globe
-        ref={globeRef}
-        globeImageUrl={`./textures/earth.jpg`}
-        backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+          ref={globeRef}
+          globeImageUrl={texture}
+          backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
         />
+      </div>
+
+      {/* Right button */}
+      <button
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 bg-gray-600 text-white rounded"
+        onClick={() => changeTexture("right")}
+      >
+        →
+      </button>
     </div>
     </div>
   );
