@@ -108,17 +108,14 @@ export function calculate_planetary_parameters(
 
     // Habitability factors
     const f_T = Math.min(1, Math.max(0, Math.exp(-Math.abs(temperature - T_E) / T_E))); // Temperature factor
-    const f_P = pressure / (1 + pressure); // Atmospheric factor
+    const f_P = Math.exp(-((Math.log(pressure) - Math.log(P_E))**2)); // Atmospheric factor
     const f_W = water_presence; // Water presence
-    const f_B = magnetic_field_strength / (magnetic_field_strength + 1); // Magnetic field protection
+    const f_B = magnetic_field_strength / abs(magnetic_field_strength - B_E); // Magnetic field protection
     const f_G = geological_activity; // Geological activity
-    const f_X = Math.exp(-radiation_levels); // Radiation survival factor
-
-    // Compute constant scaling factor (C) based on Earth-like conditions
-    const C = 1 / (f_T * f_P * f_W * f_B * f_G * f_X);
+    const f_X = 1 / (1 + (radiation_levels /X_E)); // Radiation survival factor
 
     // Compute probability of life (scale 0-100)
-    const P_L = 100 * C * f_T * f_P * f_W * f_B * f_G * f_X;
+    const P_L = 100 * f_T * f_P * f_W * f_B * f_G * f_X;
 
     return {
         "Habitability Probability (0-100)": Math.round(P_L * 100) / 100
