@@ -1,11 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Globe from "react-globe.gl";
 import { Link, useParams } from "react-router-dom";
+import AIMessage from "./AIMessage";
 
 const Planet = () => {
   const param = useParams();
   const planet = param.planet;
-  // const [ prompt, setPro]
+  const [prompt, setPrompt] = useState("");
 
   const globeRef = useRef();
 
@@ -26,7 +27,7 @@ const Planet = () => {
         <h1 className="text-5xl font-bold text-white">Planet Explorer</h1>
         <p className="text-center text-3xl uppercase mt-4">{planet}</p>
       </div>
-      <div className="text-white border border-white absolute top-50 left-0 bottom-50 z-50 rounded-md p-6">
+      <div className="text-white border border-white absolute left-0 top-1/2 transform -translate-y-1/2 z-50 rounded-md p-6">
         <div className="flex flex-col items-center space-y-4">
           <h1 className="text-3xl font-bold">Statistics</h1>
           <ul className="flex flex-col space-y-6">
@@ -52,7 +53,7 @@ const Planet = () => {
           </ul>
         </div>
       </div>
-      <div className="text-white border border-white absolute top-50 right-0 bottom-50 z-50 rounded-md p-6">
+      <div className="text-white border border-white absolute right-0 top-1/2 transform -translate-y-1/2  z-50 rounded-md p-6">
         <div className="flex flex-col items-center space-y-4">
           <h1 className="text-3xl font-bold">Planets</h1>
           <div className="flex flex-col space-y-6 items-center">
@@ -80,20 +81,17 @@ const Planet = () => {
           </div>
         </div>
       </div>
-      <div className="text-white border border-white absolute left-1/2 transform -translate-x-1/2 bottom-0 z-50 rounded-t-md p-8">
+      <div className=" text-white border border-white absolute left-1/2 transform -translate-x-1/2 bottom-0 z-50 rounded-t-md p-8">
         <h2 className="text-center text-2xl mb-4">Ask Something to AI</h2>
-        <div className="h-full flex justify-center items-center">
-          <form action="" className="flex gap-1">
-            <input
-              type="text"
-              // value={}
-              className="bg-white w-full text-black p-4 rounded-l-md"
-              placeholder="Type Something"
-            />
-            <button className="bg-white text-black p-4 cursor-pointer rounded-r-md">
-              Send
-            </button>
-          </form>
+        <div className="flex">
+          <input
+            type="text"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            className="bg-white w-full text-black p-4 rounded-l-md"
+            placeholder="Type Something"
+          />
+          <AIMessage prompt={prompt} />
         </div>
       </div>
       <Globe
