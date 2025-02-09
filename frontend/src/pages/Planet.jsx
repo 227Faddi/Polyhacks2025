@@ -147,7 +147,9 @@ const Planet = () => {
             className="bg-white w-full text-black p-4 rounded-l-md"
             placeholder="Type..."
           />
-          <AIMessage prompt={prompt} />
+          <AIMessage
+            prompt={`in base of this planet: ${planetCurr}, answer this question with max 5 sentences ${prompt}`}
+          />
         </div>
       </div>
       <Globe
