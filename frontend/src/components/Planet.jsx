@@ -1,9 +1,24 @@
+import { useEffect, useRef } from "react";
 import Globe from "react-globe.gl";
 import { Link, useParams } from "react-router-dom";
 
 const Planet = () => {
   const param = useParams();
   const planet = param.planet;
+  // const [ prompt, setPro]
+
+  const globeRef = useRef();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (globeRef.current) {
+        globeRef.current.controls().autoRotate = true;
+        globeRef.current.controls().autoRotateSpeed = 0.8;
+      }
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="h-screen relative">
@@ -71,6 +86,7 @@ const Planet = () => {
           <form action="" className="flex gap-1">
             <input
               type="text"
+              // value={}
               className="bg-white w-full text-black p-4 rounded-l-md"
               placeholder="Type Something"
             />
@@ -81,6 +97,7 @@ const Planet = () => {
         </div>
       </div>
       <Globe
+        ref={globeRef}
         globeImageUrl={`./textures/${planet}.jpg`}
         backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
       />
