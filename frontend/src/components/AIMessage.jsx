@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Swal from "sweetalert2";
 
-const AIMessage = ({ prompt }) => {
+const AIMessage = ({ prompt, text, className }) => {
   const handlePrompt = async () => {
     try {
       // Show loading popup while the AI is generating insights
@@ -14,7 +14,7 @@ const AIMessage = ({ prompt }) => {
         },
         customClass: {
           popup:
-            "outline outline-4 outline-slate-300 bg-gray-900 text-white !outline-slate-700",
+            "!outline !outline-4 !outline-slate-300 !bg-gray-900 !text-white !outline-slate-700",
         },
       });
 
@@ -27,16 +27,16 @@ const AIMessage = ({ prompt }) => {
       const message = result.response.text();
 
       // Close the loading popup and show the insights message
-      await loadingPopup.close(); // Close the loading popup
+      await loadingPopup.close();
       await Swal.fire({
         title: "Insights",
         text: message,
         showCloseButton: true,
         customClass: {
           popup:
-            "outline outline-4 outline-slate-300 bg-gray-900 text-white !outline-slate-700",
+            "!outline outline-4 !outline-slate-300 !bg-gray-900 !text-white !outline-slate-700",
           confirmButton:
-            "text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500",
+            "!text-white !bg-gradient-to-r !from-blue-500 !via-blue-600 !to-blue-700 !hover:bg-gradient-to-br !focus:ring-4 !focus:outline-none !focus:ring-blue-300 !shadow-lg !shadow-blue-500/50 !font-medium !rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500",
         },
       });
     } catch (err) {
@@ -47,9 +47,9 @@ const AIMessage = ({ prompt }) => {
         text: "Please try again later.",
         customClass: {
           popup:
-            "outline outline-4 outline-slate-300 bg-gray-900 text-white !outline-slate-700",
+            "!outline !outline-4 !outline-slate-300 !bg-gray-900 !text-white !outline-slate-700",
           confirmButton:
-            "text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500",
+            "!text-white !bg-gradient-to-r !from-blue-500 !via-blue-600 !to-blue-700 !hover:bg-gradient-to-br !focus:ring-4 !focus:outline-none !focus:ring-blue-300 !shadow-lg !shadow-blue-500/50 !font-medium !rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500",
         },
       });
     }
@@ -58,10 +58,10 @@ const AIMessage = ({ prompt }) => {
   return (
     <button
       onClick={handlePrompt}
-      className="flex-1 cursor-pointer text-white bg-gradient-to-r from-blue-500 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-r-md text-sm px-5 py-2.5 text-center"
+      className={`flex-1 cursor-pointer text-white bg-gradient-to-r from-blue-500 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-r-md px-5 py-2.5 text-center ${className}`}
       disabled={prompt === ""}
     >
-      Send
+      {text ? text : "Send"}
     </button>
   );
 };
