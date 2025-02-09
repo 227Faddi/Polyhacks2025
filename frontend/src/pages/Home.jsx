@@ -1,16 +1,8 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchImageOfTheDay } from "../api";
 
 export default function Home() {
-  const [imageData, setImageData] = useState("");
-
-  useEffect(() => {
-    fetchImageOfTheDay().then((data) => {
-      setImageData(data.data);
-    });
-  }, []);
 
   const navigate = useNavigate();
   const [query, setQuery] = React.useState("");
