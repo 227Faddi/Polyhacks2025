@@ -29,11 +29,11 @@ Throughout the development, we honed our skills in:
 
 Clone the repository:
 ```bash
-git clone https://github.com/227Faddi/Polyhacks2025.git
+git clone https://github.com/Francklin9999/Polyhacks2025
 ```
 Navigate to the project directory:
 ```bash
-git clone https://github.com/227Faddi/Polyhacks2025.git
+cd Polyhacks2025
 ```
 Install dependencies:
 ```bash
