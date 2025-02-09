@@ -68,6 +68,12 @@ export default function Home() {
           >
             Get Started
           </a>
+          <Link
+            to="/create"
+            className="inline-block mt-8 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-xl px-8 py-4 text-center me-2 mb-2"
+          >
+            Create Your Planet
+          </Link>
         </motion.div>
       </header>
       <section className="py-16 px-6  text-center mb-32" id="planets">
