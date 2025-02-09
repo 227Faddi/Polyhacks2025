@@ -103,24 +103,21 @@ export function calculate_planetary_parameters(
         throw new Error("Radiation Levels must be between 0.01 and 1000 Sv.");
     }
 
-    // Reference Earth values
-    const T_E = 288, P_E = 1, W_E = 1, B_E = 0.5, G_E = 1, X_E = 0.01;
+// Reference Earth values
+const T_E = 288, P_E = 1, W_E = 1, B_E = 0.5, G_E = 1, X_E = 0.01;
 
-    // Habitability factors
-    const f_T = Math.min(1, Math.max(0, Math.exp(-Math.abs(temperature - T_E) / T_E))); // Temperature factor
-    const f_P = pressure / (1 + pressure); // Atmospheric factor
-    const f_W = water_presence; // Water presence
-    const f_B = magnetic_field_strength / (magnetic_field_strength + 1); // Magnetic field protection
-    const f_G = geological_activity; // Geological activity
-    const f_X = Math.exp(-radiation_levels); // Radiation survival factor
+// Habitability factors
+const f_T = Math.min(1, Math.max(0, Math.exp(-Math.abs(temperature - T_E) / T_E))); // Temperature factor
+const f_P = Math.exp(-((Math.log(pressure) - Math.log(P_E))*2)); // Atmospheric factor
+const f_W = water_presence; // Water presence
+const f_B = magnetic_field_strength / abs(magnetic_field_strength - B_E); // Magnetic field protection
+const f_G = geological_activity; // Geological activity
+const f_X = 1 / (1 + (radiation_levels /X_E)); // Radiation survival factor
 
-    // Compute constant scaling factor (C) based on Earth-like conditions
-    const C = 1 / (f_T * f_P * f_W * f_B * f_G * f_X);
+// Compute probability of life (scale 0-100)
+const P_L = 100 f_T * f_P * f_W * f_B * f_G * f_X;
 
-    // Compute probability of life (scale 0-100)
-    const P_L = 100 * C * f_T * f_P * f_W * f_B * f_G * f_X;
-
-    return {
-        "Habitability Probability (0-100)": Math.round(P_L * 100) / 100
-    };
+return {
+    "Habitability Probability (0-100)": Math.round(P_L * 100) / 100
+};
 }
