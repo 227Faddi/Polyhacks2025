@@ -30,39 +30,3 @@ export async function fetchPlanetData(planetName) {
     return { status: "error", message: "An error occurred: " + err.message };
   }
 }
-
-export async function fetchSearchNasa(query) {
-  const requestUrl = `https://images-api.nasa.gov/search?q=${query}`;
-  try {
-    const response = await fetch(requestUrl);
-    if (response.ok) {
-      const data = await response.json();
-      return { status: "success", data };
-    } else {
-      return {
-        status: "error",
-        message: "Failed to fetch data: " + response.statusText,
-      };
-    }
-  } catch (err) {
-    return { status: "error", message: "An error occurred: " + err.message };
-  }
-}
-
-export async function fetchImageOfTheDay() {
-  const requestUrl = `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`;
-  try {
-    const response = await fetch(requestUrl);
-    if (response.ok) {
-      const data = await response.json();
-      return { status: "success", data };
-    } else {
-      return {
-        status: "error",
-        message: "Failed to fetch data: " + response.statusText,
-      };
-    }
-  } catch (err) {
-    return { status: "error", message: "An error occurred: " + err.message };
-  }
-}
